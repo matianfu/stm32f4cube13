@@ -44,7 +44,7 @@
 
 #ifndef SEMIHOSTING
 
-// extern int uart_write(int32_t file, uint8_t *ptr, int32_t len);
+extern int uart_write(int32_t file, uint8_t *ptr, int32_t len);
 
 /* Variables */
 #undef errno
@@ -82,9 +82,8 @@ int _write(int32_t file, uint8_t *ptr, int32_t len)
   /* Implement your write code here, this is used by puts and printf for example */
   // return len;
 
-  // TODO
-  // return uart_write(file, ptr, len);
-  return -1;
+  return uart_write(file, ptr, len);
+  // return -1;
 }
 
 caddr_t _sbrk(int32_t incr)

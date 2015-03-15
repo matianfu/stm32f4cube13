@@ -26,7 +26,15 @@
   */ 
 
 /* Includes ------------------------------------------------------------------*/
+#include <stdio.h>
+#include <string.h>
 #include "main.h"
+
+/* print */
+#include "usart.h"
+#include "dma.h"
+
+extern void uart_hl_print(void);
 
 /** @addtogroup STM32F4-Discovery_Audio_Player_Recorder
   * @{
@@ -86,6 +94,8 @@ static void  COMMAND_AudioExecuteApplication(void);
 */
 int main(void)
 {
+
+
   /* STM32F4xx HAL library initialization:
   - Configure the Flash prefetch, instruction and Data caches
   - Configure the Systick to generate an interrupt each 1 msec
@@ -123,6 +133,16 @@ int main(void)
 
   /* Turn OFF all LEDs */
   LEDsState = LEDS_OFF;
+
+  /* print uart init begin */
+  // TODO refactoring
+  __GPIOA_CLK_ENABLE();
+  MX_DMA_Init();
+  MX_USART2_UART_Init();
+  // HAL_UART_Transmit_DMA(&huart2, (uint8_t*)print_buffer, strlen(print_buffer));
+  printf("\r\n\r\n================= system start ==================\r\n");
+
+  /* print uart init end */
   
   /* Initialize User Button */
   BSP_PB_Init(BUTTON_KEY, BUTTON_MODE_EXTI);
@@ -154,9 +174,12 @@ int main(void)
       
       /* USBH_Background Process */
       USBH_Process(&hUSBHost);
+
     }
-  }
-  while (1) {}
+    uart_hl_print();
+  };
+
+  while (1) {};
 }
 
 /**

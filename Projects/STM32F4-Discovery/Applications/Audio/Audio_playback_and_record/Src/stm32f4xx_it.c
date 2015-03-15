@@ -34,6 +34,10 @@
   * @{
   */
 
+/** print **/
+extern DMA_HandleTypeDef hdma_usart2_tx;
+extern void uart_ll_print(void);
+
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -144,6 +148,8 @@ void PendSV_Handler(void)
 {
 }
 
+
+
 /**
   * @brief  This function handles SysTick Handler.
   * @param  None
@@ -159,6 +165,22 @@ void SysTick_Handler(void)
     /* Increments the time recording base variable */
     TimeRecBase ++; 
   }
+
+  uart_ll_print();
+}
+
+/**
+* @brief This function handles DMA1 Stream6 global interrupt.
+*/
+void DMA1_Stream6_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA1_Stream6_IRQn 0 */
+
+  /* USER CODE END DMA1_Stream6_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_usart2_tx);
+  /* USER CODE BEGIN DMA1_Stream6_IRQn 1 */
+
+  /* USER CODE END DMA1_Stream6_IRQn 1 */
 }
 
 /******************************************************************************/

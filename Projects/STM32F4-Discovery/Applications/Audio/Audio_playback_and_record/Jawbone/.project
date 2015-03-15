@@ -245,6 +245,11 @@
 			<locationURI>PARENT-6-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c</locationURI>
 		</link>
 		<link>
+			<name>Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c</name>
+			<type>1</type>
+			<locationURI>PARENT-6-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c</locationURI>
+		</link>
+		<link>
 			<name>Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.c</name>
 			<type>1</type>
 			<locationURI>PARENT-6-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.c</locationURI>
@@ -415,6 +420,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Inc/main.h</locationURI>
 		</link>
 		<link>
+			<name>Projects/STM32F4-Discovery/Applications/Audio/Audio_playback_and_record/Src/dma.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Src/dma.c</locationURI>
+		</link>
+		<link>
 			<name>Projects/STM32F4-Discovery/Applications/Audio/Audio_playback_and_record/Src/main.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Src/main.c</locationURI>
@@ -423,6 +433,16 @@
 			<name>Projects/STM32F4-Discovery/Applications/Audio/Audio_playback_and_record/Src/stm32f4xx_it.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Src/stm32f4xx_it.c</locationURI>
+		</link>
+		<link>
+			<name>Projects/STM32F4-Discovery/Applications/Audio/Audio_playback_and_record/Src/uart_printf.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Src/uart_printf.c</locationURI>
+		</link>
+		<link>
+			<name>Projects/STM32F4-Discovery/Applications/Audio/Audio_playback_and_record/Src/usart.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Src/usart.c</locationURI>
 		</link>
 		<link>
 			<name>Projects/STM32F4-Discovery/Applications/Audio/Audio_playback_and_record/Src/usbh_conf.c</name>
