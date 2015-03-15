@@ -144,6 +144,25 @@ int main(void)
   // HAL_UART_Transmit_DMA(&huart2, (uint8_t*)print_buffer, strlen(print_buffer));
   printf("\r\n\r\n================= system start ==================\r\n");
 
+  int16_t test;
+  uint8_t low = 0x28;
+  uint8_t high = 0xFF;
+
+  uint8_t* p = (uint8_t*)(&test);
+  *p = low;
+  *(p+1) = high;
+  printf("first: %d\r\n", test);
+
+  *p = high;
+  *(p+1) = low;
+  printf("second: %d\r\n", test);
+
+  uint8_t array[2];
+  array[0] = 0x28;
+  array[1] = 0xFF;
+  test = *((int16_t*)array);
+  printf("third: %d\r\n", test);
+
   /* print uart init end */
   
   /* Initialize User Button */
