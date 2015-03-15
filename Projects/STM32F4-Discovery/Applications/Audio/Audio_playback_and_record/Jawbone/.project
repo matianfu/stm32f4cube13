@@ -135,11 +135,6 @@
 			<locationURI>PARENT-6-PROJECT_LOC/Drivers/BSP/STM32F4-Discovery/stm32f4_discovery_accelerometer.c</locationURI>
 		</link>
 		<link>
-			<name>Drivers/BSP/STM32F4-Discovery/stm32f4_discovery_accelerometer.h</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Drivers/BSP/STM32F4-Discovery/stm32f4_discovery_accelerometer.h</locationURI>
-		</link>
-		<link>
 			<name>Drivers/BSP/STM32F4-Discovery/stm32f4_discovery_audio.c</name>
 			<type>1</type>
 			<locationURI>PARENT-6-PROJECT_LOC/Drivers/BSP/STM32F4-Discovery/stm32f4_discovery_audio.c</locationURI>
