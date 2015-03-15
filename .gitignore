@@ -27,3 +27,17 @@
 *.i*86
 *.x86_64
 *.hex
+
+# html
+*.htm
+*.html
+*.js
+*.cs
+*.bmp
+*.tif
+*.tiff
+*.gif
+*.png
+*.jpg
+*.jpeg
+*.pdf
