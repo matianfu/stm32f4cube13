@@ -48,8 +48,8 @@
 #include "stm32f4_discovery.h"
    
 /* Include Accelerometer component drivers */
-#include "..\Components\lis302dl\lis302dl.h"   
-#include "..\Components\lis3dsh\lis3dsh.h"   
+#include "../Components/lis302dl/lis302dl.h"
+#include "../Components/lis3dsh/lis3dsh.h"
 
 /** @addtogroup BSP
   * @{
