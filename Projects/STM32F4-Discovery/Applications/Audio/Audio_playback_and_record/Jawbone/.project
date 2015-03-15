@@ -420,6 +420,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Inc/main.h</locationURI>
 		</link>
 		<link>
+			<name>Projects/STM32F4-Discovery/Applications/Audio/Audio_playback_and_record/Inc/waverecorder.h</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Inc/waverecorder.h</locationURI>
+		</link>
+		<link>
 			<name>Projects/STM32F4-Discovery/Applications/Audio/Audio_playback_and_record/Src/dma.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Src/dma.c</locationURI>
@@ -448,11 +453,6 @@
 			<name>Projects/STM32F4-Discovery/Applications/Audio/Audio_playback_and_record/Src/usbh_conf.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Src/usbh_conf.c</locationURI>
-		</link>
-		<link>
-			<name>Projects/STM32F4-Discovery/Applications/Audio/Audio_playback_and_record/Src/waveplayer.c</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Src/waveplayer.c</locationURI>
 		</link>
 		<link>
 			<name>Projects/STM32F4-Discovery/Applications/Audio/Audio_playback_and_record/Src/waverecorder.c</name>

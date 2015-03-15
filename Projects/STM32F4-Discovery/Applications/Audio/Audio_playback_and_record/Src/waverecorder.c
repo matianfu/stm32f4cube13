@@ -137,6 +137,7 @@ void WaveRecorderProcess(void)
   LEDsState = LEDS_OFF;
   
   /* Remove Wave file if it exists on USB Flash Disk */
+  printf("unlink file %s\r\n", REC_WAVE_NAME);
   f_unlink (REC_WAVE_NAME);
   
   /* Open the file to write on it */
@@ -151,12 +152,16 @@ void WaveRecorderProcess(void)
   }
   else
   {
+    printf("Set WaveRecStatus to 1\r\n");
     WaveRecStatus = 1;
   }
   /* Initialize header file */
+
+  printf("Call WavProcess_EncInit\r\n");
   WavProcess_EncInit(DEFAULT_AUDIO_IN_FREQ, pHeaderBuff);
   
   /* Write the header Wave */
+  printf("Write the header Wave\r\n");
   f_write(&WavFile, pHeaderBuff, 44, (void *)&byteswritten);
   
   /* Increment the Wave counter */  
@@ -176,9 +181,11 @@ void WaveRecorderProcess(void)
     /* Wait for the recording time */  
     if (TimeRecBase <= DEFAULT_TIME_REC)
     {
+      // printf("Record not finished.\r\n");
       /* Check if there are Data to write in Usb Key */
       if(AUDIODataReady == 1)
       {
+        printf("Audio Data Ready, write to file.\r\n");
         /* write buffer in file */
         if(f_write(&WavFile, (uint8_t*)(WrBuffer+AUDIOBuffOffset), WR_BUFFER_SIZE, (void*)&byteswritten) != FR_OK)
         {
@@ -191,6 +198,7 @@ void WaveRecorderProcess(void)
       /* User button pressed */
       if (CmdIndex != CMD_RECORD)
       {
+        printf("CmdIndex not CMD_RECORD, record stop.\r\n");
         /* Stop Audio Recording */
         WaveRecorderStop();
         /* Switch Command Index to Play */
@@ -203,6 +211,7 @@ void WaveRecorderProcess(void)
     else /* End of recording time TIME_REC */
     {
       /* Stop Audio Recording */
+      printf("Time Out, Record stop\r\n");
       WaveRecorderStop();
       /* Change Command Index to Stop */
       CmdIndex = CMD_STOP;
@@ -217,10 +226,12 @@ void WaveRecorderProcess(void)
   f_lseek(&WavFile, 0);
   
   /* Parse the wav file header and extract required information */
+  printf("update header.\r\n");
   WavProcess_HeaderUpdate(pHeaderBuff, &WaveFormat);
   f_write(&WavFile, pHeaderBuff, 44, (void*)&byteswritten);
   
   /* Close file and unmount MyFilesystem */
+  printf("close and unmount file. change to Play.\r\n");
   f_close (&WavFile);
   f_mount(NULL, 0, 1);
   

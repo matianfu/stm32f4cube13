@@ -53,7 +53,8 @@ __IO uint32_t PressCount = 0;
 /* Wave Player Pause/Resume Status. Defined as external in waveplayer.c file */
 __IO uint32_t PauseResumeStatus = IDLE_STATUS;   
                                                    
-extern uint32_t AudioPlayStart;
+// extern uint32_t AudioPlayStart;
+__IO uint32_t AudioPlayStart = 0; /* from play file */
 
 /* Re-play Wave file status on/off.
    Defined as external in waveplayer.c file */
@@ -63,7 +64,8 @@ __IO uint32_t RepeatState = REPEAT_ON;
    Defined as external in stm32f4xx_it.c file */
 __IO uint16_t CCR1Val = 16826;              
                                             
-extern __IO uint32_t LEDsState;
+__IO uint32_t LEDsState;
+
 
 /* Save MEMS ID */
 uint8_t MemsID = 0; 
@@ -196,7 +198,7 @@ static void USBH_UserProcess (USBH_HandleTypeDef *pHost, uint8_t vId)
     break;
     
   case HOST_USER_DISCONNECTION:
-    WavePlayer_CallBack();
+    // WavePlayer_CallBack();
     AppliState = APPLICATION_IDLE;
     f_mount(NULL, (TCHAR const*)"", 0);          
     break;
@@ -259,8 +261,8 @@ static void COMMAND_AudioExecuteApplication(void)
   {
   /* Start Playing from USB Flash memory */
   case CMD_PLAY:
-    if (RepeatState == REPEAT_ON)
-      WavePlayerStart();
+      // if (RepeatState == REPEAT_ON)
+      // WavePlayerStart();
     break;
     /* Start Recording in USB Flash memory */ 
   case CMD_RECORD:
@@ -496,7 +498,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
         /* Switch to Record command */
         CmdIndex = CMD_RECORD;
       }
-      else
+      else  // CMD_STOP
       {
         RepeatState = REPEAT_ON;
         /* Default Command Index: Play command */
