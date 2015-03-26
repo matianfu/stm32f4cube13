@@ -30,11 +30,6 @@
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
-			<name>Middlewares</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link>
-		<link>
 			<name>Projects</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
@@ -51,16 +46,6 @@
 		</link>
 		<link>
 			<name>Drivers/STM32F4xx_HAL_Driver</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/ST</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Third_Party</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
@@ -90,32 +75,12 @@
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/ST/STM32_USB_Host_Library</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Third_Party/FatFs</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link>
-		<link>
 			<name>Projects/STM32F4-Discovery/Applications</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
 			<name>Drivers/BSP/Components/cs43l22</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link>
-		<link>
-			<name>Drivers/BSP/Components/lis302dl</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link>
-		<link>
-			<name>Drivers/BSP/Components/lis3dsh</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
@@ -128,11 +93,6 @@
 			<name>Drivers/BSP/STM32F4-Discovery/stm32f4_discovery.h</name>
 			<type>1</type>
 			<locationURI>PARENT-6-PROJECT_LOC/Drivers/BSP/STM32F4-Discovery/stm32f4_discovery.h</locationURI>
-		</link>
-		<link>
-			<name>Drivers/BSP/STM32F4-Discovery/stm32f4_discovery_accelerometer.c</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Drivers/BSP/STM32F4-Discovery/stm32f4_discovery_accelerometer.c</locationURI>
 		</link>
 		<link>
 			<name>Drivers/BSP/STM32F4-Discovery/stm32f4_discovery_audio.c</name>
@@ -178,11 +138,6 @@
 			<name>Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c</name>
 			<type>1</type>
 			<locationURI>PARENT-6-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c</locationURI>
-		</link>
-		<link>
-			<name>Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_hcd.c</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_hcd.c</locationURI>
 		</link>
 		<link>
 			<name>Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c</name>
@@ -235,44 +190,9 @@
 			<locationURI>PARENT-6-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c</locationURI>
 		</link>
 		<link>
-			<name>Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c</locationURI>
-		</link>
-		<link>
-			<name>Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c</locationURI>
-		</link>
-		<link>
 			<name>Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c</name>
 			<type>1</type>
 			<locationURI>PARENT-6-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c</locationURI>
-		</link>
-		<link>
-			<name>Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.c</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.c</locationURI>
-		</link>
-		<link>
-			<name>Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/ST/STM32_USB_Host_Library/Class</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/ST/STM32_USB_Host_Library/Core</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Third_Party/FatFs/src</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
 			<name>Projects/STM32F4-Discovery/Applications/Audio</name>
@@ -290,59 +210,9 @@
 			<locationURI>PARENT-6-PROJECT_LOC/Drivers/BSP/Components/cs43l22/cs43l22.h</locationURI>
 		</link>
 		<link>
-			<name>Drivers/BSP/Components/lis302dl/lis302dl.c</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Drivers/BSP/Components/lis302dl/lis302dl.c</locationURI>
-		</link>
-		<link>
-			<name>Drivers/BSP/Components/lis302dl/lis302dl.h</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Drivers/BSP/Components/lis302dl/lis302dl.h</locationURI>
-		</link>
-		<link>
-			<name>Drivers/BSP/Components/lis3dsh/lis3dsh.c</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Drivers/BSP/Components/lis3dsh/lis3dsh.c</locationURI>
-		</link>
-		<link>
-			<name>Drivers/BSP/Components/lis3dsh/lis3dsh.h</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Drivers/BSP/Components/lis3dsh/lis3dsh.h</locationURI>
-		</link>
-		<link>
 			<name>Drivers/CMSIS/Device/ST/STM32F4xx</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/ST/STM32_USB_Host_Library/Class/MSC</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/ST/STM32_USB_Host_Library/Core/Src</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Third_Party/FatFs/src/diskio.c</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Middlewares/Third_Party/FatFs/src/diskio.c</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Third_Party/FatFs/src/drivers</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Third_Party/FatFs/src/ff.c</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Middlewares/Third_Party/FatFs/src/ff.c</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Third_Party/FatFs/src/ff_gen_drv.c</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Middlewares/Third_Party/FatFs/src/ff_gen_drv.c</locationURI>
 		</link>
 		<link>
 			<name>Projects/STM32F4-Discovery/Applications/Audio/Audio_playback_and_record</name>
@@ -353,36 +223,6 @@
 			<name>Drivers/CMSIS/Device/ST/STM32F4xx/Source</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/ST/STM32_USB_Host_Library/Class/MSC/Src</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/ST/STM32_USB_Host_Library/Core/Src/usbh_core.c</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Middlewares/ST/STM32_USB_Host_Library/Core/Src/usbh_core.c</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/ST/STM32_USB_Host_Library/Core/Src/usbh_ctlreq.c</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Middlewares/ST/STM32_USB_Host_Library/Core/Src/usbh_ctlreq.c</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/ST/STM32_USB_Host_Library/Core/Src/usbh_ioreq.c</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Middlewares/ST/STM32_USB_Host_Library/Core/Src/usbh_ioreq.c</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/ST/STM32_USB_Host_Library/Core/Src/usbh_pipes.c</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Middlewares/ST/STM32_USB_Host_Library/Core/Src/usbh_pipes.c</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Third_Party/FatFs/src/drivers/usbh_diskio.c</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Middlewares/Third_Party/FatFs/src/drivers/usbh_diskio.c</locationURI>
 		</link>
 		<link>
 			<name>Projects/STM32F4-Discovery/Applications/Audio/Audio_playback_and_record/Inc</name>
@@ -398,21 +238,6 @@
 			<name>Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/ST/STM32_USB_Host_Library/Class/MSC/Src/usbh_msc.c</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Middlewares/ST/STM32_USB_Host_Library/Class/MSC/Src/usbh_msc.c</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/ST/STM32_USB_Host_Library/Class/MSC/Src/usbh_msc_bot.c</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Middlewares/ST/STM32_USB_Host_Library/Class/MSC/Src/usbh_msc_bot.c</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/ST/STM32_USB_Host_Library/Class/MSC/Src/usbh_msc_scsi.c</name>
-			<type>1</type>
-			<locationURI>PARENT-6-PROJECT_LOC/Middlewares/ST/STM32_USB_Host_Library/Class/MSC/Src/usbh_msc_scsi.c</locationURI>
 		</link>
 		<link>
 			<name>Projects/STM32F4-Discovery/Applications/Audio/Audio_playback_and_record/Inc/main.h</name>
@@ -448,11 +273,6 @@
 			<name>Projects/STM32F4-Discovery/Applications/Audio/Audio_playback_and_record/Src/usart.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Src/usart.c</locationURI>
-		</link>
-		<link>
-			<name>Projects/STM32F4-Discovery/Applications/Audio/Audio_playback_and_record/Src/usbh_conf.c</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Src/usbh_conf.c</locationURI>
 		</link>
 		<link>
 			<name>Projects/STM32F4-Discovery/Applications/Audio/Audio_playback_and_record/Src/waverecorder.c</name>

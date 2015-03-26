@@ -44,14 +44,12 @@ extern void uart_ll_print(void);
 /* Private variables ---------------------------------------------------------*/
 
 /* Timer used for LED blinking (defined in main.c */
-extern TIM_HandleTypeDef hTimLed;
 
 extern I2S_HandleTypeDef       hAudioOutI2s;
 
 extern I2S_HandleTypeDef       hAudioInI2s;
  __IO uint32_t TimeRecBase = 0;  /* Time Recording base variable */
-extern __IO uint32_t CmdIndex;
-extern HCD_HandleTypeDef hHCD;
+
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -195,20 +193,20 @@ void DMA1_Stream6_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void EXTI0_IRQHandler(void)
-{
-  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
-}
+//void EXTI0_IRQHandler(void)
+//{
+//  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
+//}
 
 /**
   * @brief  This function handles External line 1 interrupt request.
   * @param  None
   * @retval None
   */
-void EXTI1_IRQHandler(void)
-{
-  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_1);
-}
+//void EXTI1_IRQHandler(void)
+//{
+//  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_1);
+//}
 
 /**
   * @brief  This function handles main I2S interrupt. 
@@ -235,20 +233,10 @@ void I2S2_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM4_IRQHandler(void)
-{
-  HAL_TIM_IRQHandler(&hTimLed);
-}
-
-/**
-  * @brief  This function handles USB-On-The-Go FS global interrupt request.
-  * @param  None
-  * @retval None
-  */
-void OTG_FS_IRQHandler(void)
-{
-  HAL_HCD_IRQHandler(&hHCD);
-}
+//void TIM4_IRQHandler(void)
+//{
+//  HAL_TIM_IRQHandler(&hTimLed);
+//}
 
 /**
   * @}

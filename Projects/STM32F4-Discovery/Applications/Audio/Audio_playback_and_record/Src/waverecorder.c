@@ -180,9 +180,9 @@ typedef struct {
 /* Wave recorded counter.*/
 __IO uint32_t WaveCounter = 0;
 
-extern __IO uint32_t LEDsState, TimeRecBase;
+// extern __IO uint32_t TimeRecBase;
 
-FIL WavFile;
+// FIL WavFile;
 
 /*USB variable to check if USB connected or not*/
 // extern MSC_ApplicationTypeDef AppliState;
@@ -305,8 +305,8 @@ void WaveRecorderProcess(void)
   /* Current size of the recorded buffer */
   uint32_t byteswritten = 0; 
 
-  WaveCounter = 0;
-  LEDsState = LEDS_OFF;
+  // WaveCounter = 0;
+  // LEDsState = LEDS_OFF;
   
   /* Increment the Wave counter */  
   BufferCtl.fptr = byteswritten;
@@ -316,10 +316,7 @@ void WaveRecorderProcess(void)
   BSP_AUDIO_IN_Record((uint16_t*)&InternalBuffer[0], INTERNAL_BUFF_SIZE);
   
   /* Reset the time recording base variable */
-  TimeRecBase = 0;
   ITCounter = 0;
-  LEDsState = LED3_TOGGLE;
-
   while (1)
   {
     if(AUDIODataReady == 1)
