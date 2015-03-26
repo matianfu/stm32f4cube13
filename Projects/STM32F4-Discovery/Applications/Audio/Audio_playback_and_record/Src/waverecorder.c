@@ -188,7 +188,7 @@ FIL WavFile;
 extern MSC_ApplicationTypeDef AppliState;
 
 /* Variable used to switch play from audio sample available on USB to recorded file*/
-// uint32_t WaveRecStatus = 0;
+uint32_t WaveRecStatus = 0;
 
 uint8_t pHeaderBuff[44];
 uint16_t WrBuffer[WR_BUFFER_SIZE];
@@ -325,11 +325,11 @@ void WaveRecorderProcess(void)
       BSP_LED_Toggle(LED5); 
     }
   }
-//  else
-//  {
+  else
+  {
 //    printf("Set WaveRecStatus to 1\r\n");
-//    WaveRecStatus = 1;
-//  }
+    WaveRecStatus = 1;
+  }
 
   /* Initialize header file */
   printf("Start recording, call WavProcess_EncInit\r\n");
@@ -363,10 +363,10 @@ void WaveRecorderProcess(void)
 //        printf("Audio Data Ready, write to file. ");
         /* write buffer in file */
         /** this code is tricky. WrBuffer is uint16_t array, that is 4096 x 2 bytes **/
-//        if(f_write(&WavFile, (uint8_t*)(WrBuffer+AUDIOBuffOffset), WR_BUFFER_SIZE, (void*)&byteswritten) != FR_OK)
-//        {
-//          Error_Handler();
-//        }
+        if(f_write(&WavFile, (uint8_t*)(WrBuffer+AUDIOBuffOffset), WR_BUFFER_SIZE, (void*)&byteswritten) != FR_OK)
+        {
+          Error_Handler();
+        }
 
         print_sound((uint8_t*)(WrBuffer+AUDIOBuffOffset));
 
