@@ -169,16 +169,16 @@ int main(void)
   BSP_PB_Init(BUTTON_KEY, BUTTON_MODE_EXTI);
   
   /*##-1- Link the USB Host disk I/O driver ##################################*/
-  if(FATFS_LinkDriver(&USBH_Driver, USBDISKPath) == 0)
-  { 
+//  if(FATFS_LinkDriver(&USBH_Driver, USBDISKPath) == 0)
+//  {
     /*##-2- Init Host Library ################################################*/
-    USBH_Init(&hUSBHost, USBH_UserProcess, 0);
+    // USBH_Init(&hUSBHost, USBH_UserProcess, 0);
     
     /*##-3- Add Supported Class ##############################################*/
-    USBH_RegisterClass(&hUSBHost, USBH_MSC_CLASS);
+    // USBH_RegisterClass(&hUSBHost, USBH_MSC_CLASS);
     
     /*##-4- Start Host Process ###############################################*/
-    USBH_Start(&hUSBHost);
+    // USBH_Start(&hUSBHost);
     
     /* Run Application (Blocking mode)*/
     while (1)
@@ -186,19 +186,21 @@ int main(void)
       switch(AppliState)
       {
       case APPLICATION_START:
-        MSC_Application();
+        // MSC_Application();
+        COMMAND_AudioExecuteApplication();
         break;      
       case APPLICATION_IDLE:
       default:
         break;      
       }
       
+      COMMAND_AudioExecuteApplication();
       /* USBH_Background Process */
-      USBH_Process(&hUSBHost);
+      // USBH_Process(&hUSBHost);
 
     }
     uart_hl_print();
-  };
+//  };
 
   while (1) {};
 }
