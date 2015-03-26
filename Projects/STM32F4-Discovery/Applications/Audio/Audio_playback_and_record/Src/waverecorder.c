@@ -257,7 +257,7 @@ uint32_t WaveRecorderStop(void)
 
 
 
-#define VOLUME_DIVIDER    (48)
+#define VOLUME_DIVIDER    (16)
 /*
  * The input is 4096 byte, 2 channel, 16 bit, little endian data.
  *
