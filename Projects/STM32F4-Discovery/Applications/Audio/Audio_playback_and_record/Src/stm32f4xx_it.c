@@ -46,9 +46,8 @@ extern void uart_ll_print(void);
 /* Timer used for LED blinking (defined in main.c */
 
 extern I2S_HandleTypeDef       hAudioOutI2s;
-
 extern I2S_HandleTypeDef       hAudioInI2s;
- __IO uint32_t TimeRecBase = 0;  /* Time Recording base variable */
+
 
 
 /* Private function prototypes -----------------------------------------------*/
@@ -156,14 +155,6 @@ void PendSV_Handler(void)
 void SysTick_Handler(void)
 {
   HAL_IncTick();
-
-  /* Test on the command: Recording */
-//  if (CmdIndex == CMD_RECORD)
-//  {
-//    /* Increments the time recording base variable */
-//    TimeRecBase ++;
-//  }
-
   uart_ll_print();
 }
 
@@ -189,26 +180,6 @@ void DMA1_Stream6_IRQHandler(void)
 /******************************************************************************/
 
 /**
-  * @brief  This function handles External line 0 interrupt request.
-  * @param  None
-  * @retval None
-  */
-//void EXTI0_IRQHandler(void)
-//{
-//  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
-//}
-
-/**
-  * @brief  This function handles External line 1 interrupt request.
-  * @param  None
-  * @retval None
-  */
-//void EXTI1_IRQHandler(void)
-//{
-//  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_1);
-//}
-
-/**
   * @brief  This function handles main I2S interrupt. 
   * @param  None
   * @retval 0 if correct communication, else wrong communication
@@ -227,16 +198,6 @@ void I2S2_IRQHandler(void)
 {
   HAL_DMA_IRQHandler(hAudioInI2s.hdmarx);
 }
-
-/**
-  * @brief  This function handles TIM4 global interrupt request.
-  * @param  None
-  * @retval None
-  */
-//void TIM4_IRQHandler(void)
-//{
-//  HAL_TIM_IRQHandler(&hTimLed);
-//}
 
 /**
   * @}
