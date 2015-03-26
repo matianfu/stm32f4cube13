@@ -160,11 +160,11 @@ void SysTick_Handler(void)
   HAL_IncTick();
 
   /* Test on the command: Recording */
-  if (CmdIndex == CMD_RECORD)
-  {
-    /* Increments the time recording base variable */
-    TimeRecBase ++; 
-  }
+//  if (CmdIndex == CMD_RECORD)
+//  {
+//    /* Increments the time recording base variable */
+//    TimeRecBase ++;
+//  }
 
   uart_ll_print();
 }

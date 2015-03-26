@@ -180,12 +180,12 @@ typedef struct {
 /* Wave recorded counter.*/
 __IO uint32_t WaveCounter = 0;
 
-extern __IO uint32_t CmdIndex, LEDsState, TimeRecBase;
+extern __IO uint32_t LEDsState, TimeRecBase;
 
 FIL WavFile;
 
 /*USB variable to check if USB connected or not*/
-extern MSC_ApplicationTypeDef AppliState;
+// extern MSC_ApplicationTypeDef AppliState;
 
 /* Variable used to switch play from audio sample available on USB to recorded file*/
 uint32_t WaveRecStatus = 0;
@@ -207,9 +207,6 @@ WAVE_FormatTypeDef WaveFormat;
 /* Private function prototypes -----------------------------------------------*/
 
 /* Private functions ---------------------------------------------------------*/
-static uint32_t WavProcess_EncInit(uint32_t Freq, uint8_t* pHeader);
-static uint32_t WavProcess_HeaderInit(uint8_t* pHeader, WAVE_FormatTypeDef* pWaveFormatStruct);
-static uint32_t WavProcess_HeaderUpdate(uint8_t* pHeader, WAVE_FormatTypeDef* pWaveFormatStruct);
 
 /*  
   A single MEMS microphone MP45DT02 mounted on STM32F4-Discovery is connected 
@@ -311,34 +308,6 @@ void WaveRecorderProcess(void)
   WaveCounter = 0;
   LEDsState = LEDS_OFF;
   
-  /* Remove Wave file if it exists on USB Flash Disk */
-  printf("unlink file %s\r\n", REC_WAVE_NAME);
-  f_unlink (REC_WAVE_NAME);
-  
-  /* Open the file to write on it */
-  if ((AppliState == APPLICATION_IDLE) || (f_open(&WavFile, REC_WAVE_NAME, FA_CREATE_ALWAYS | FA_WRITE) != FR_OK))
-  {   
-    while(1)
-    {
-     /* Toggle LED5 in infinite loop to signal that: USB Flash Disk is not connected/removed
-      or an issue has occurred when creating/opening Wave file */
-      BSP_LED_Toggle(LED5); 
-    }
-  }
-  else
-  {
-//    printf("Set WaveRecStatus to 1\r\n");
-    WaveRecStatus = 1;
-  }
-
-  /* Initialize header file */
-  printf("Start recording, call WavProcess_EncInit\r\n");
-  WavProcess_EncInit(DEFAULT_AUDIO_IN_FREQ, pHeaderBuff);
-  
-  /* Write the header Wave */
-  printf("Write the header Wave\r\n");
-  f_write(&WavFile, pHeaderBuff, 44, (void *)&byteswritten);
-  
   /* Increment the Wave counter */  
   BufferCtl.fptr = byteswritten;
   
@@ -351,75 +320,16 @@ void WaveRecorderProcess(void)
   ITCounter = 0;
   LEDsState = LED3_TOGGLE;
 
-  while(AppliState != APPLICATION_IDLE)
-  { 
-    /* Wait for the recording time */  
-    if (TimeRecBase <= DEFAULT_TIME_REC)
+  while (1)
+  {
+    if(AUDIODataReady == 1)
     {
-      // printf("Record not finished.\r\n");
-      /* Check if there are Data to write in Usb Key */
-      if(AUDIODataReady == 1)
-      {
-//        printf("Audio Data Ready, write to file. ");
-        /* write buffer in file */
-        /** this code is tricky. WrBuffer is uint16_t array, that is 4096 x 2 bytes **/
-        if(f_write(&WavFile, (uint8_t*)(WrBuffer+AUDIOBuffOffset), WR_BUFFER_SIZE, (void*)&byteswritten) != FR_OK)
-        {
-          Error_Handler();
-        }
+      print_sound((uint8_t*)(WrBuffer+AUDIOBuffOffset));
 
-        print_sound((uint8_t*)(WrBuffer+AUDIOBuffOffset));
-
-        BufferCtl.fptr += byteswritten;
-//        printf("AUDIOBuffOffset: %u, byteswritten: %u, BufferCtl.fptr: %u\r\n",
-//            (unsigned int)AUDIOBuffOffset,
-//            (unsigned int)byteswritten,
-//            (unsigned int)BufferCtl.fptr);
-        AUDIODataReady = 0;
-      }
-      
-      /* User button pressed */
-      if (CmdIndex != CMD_RECORD)
-      {
-        printf("CmdIndex not CMD_RECORD, record stop.\r\n");
-        /* Stop Audio Recording */
-        WaveRecorderStop();
-        /* Switch Command Index to Play */
-        CmdIndex = CMD_PLAY;
-        /* Toggoling LED6 to signal Play */
-        LEDsState = LED6_TOGGLE;
-        break;
-      }
-    }
-    else /* End of recording time TIME_REC */
-    {
-      /* Stop Audio Recording */
-      printf("Time Out, Record stop\r\n");
-      WaveRecorderStop();
-      /* Change Command Index to Stop */
-      CmdIndex = CMD_STOP;
-      /* Toggoling LED4 to signal Stop */
-      LEDsState = LED4_TOGGLE;
+      BufferCtl.fptr += byteswritten;
       AUDIODataReady = 0;
-      break;
     }
   }
-  
-  /* Update the data length in the header of the recorded Wave */    
-  f_lseek(&WavFile, 0);
-  
-  /* Parse the wav file header and extract required information */
-  printf("update header.\r\n");
-  WavProcess_HeaderUpdate(pHeaderBuff, &WaveFormat);
-  f_write(&WavFile, pHeaderBuff, 44, (void*)&byteswritten);
-  
-  /* Close file and unmount MyFilesystem */
-  printf("close and unmount file. change to Play.\r\n");
-  f_close (&WavFile);
-  f_mount(NULL, 0, 1);
-  
-  /* Change Command Index to Play */
-  CmdIndex = CMD_PLAY;
 }
 
 /**
@@ -486,165 +396,6 @@ void BSP_AUDIO_IN_HalfTransfer_CallBack(void)
   {
     ITCounter++;
   }
-}
-
-/**
-  * @brief  Encoder initialization.
-  * @param  Freq: Sampling frequency.
-  * @param  pHeader: Pointer to the WAV file header to be written.  
-  * @retval 0 if success, !0 else.
-  */
-static uint32_t WavProcess_EncInit(uint32_t Freq, uint8_t* pHeader)
-{  
-  /* Initialize the encoder structure */
-  WaveFormat.SampleRate = Freq;        /* Audio sampling frequency */
-  WaveFormat.NbrChannels = 2;          /* Number of channels: 1:Mono or 2:Stereo */
-  WaveFormat.BitPerSample = 16;        /* Number of bits per sample (16, 24 or 32) */
-  WaveFormat.FileSize = 0x001D4C00;    /* Total length of useful audio data (payload) */
-  WaveFormat.SubChunk1Size = 44;       /* The file header chunk size */
-  WaveFormat.ByteRate = (WaveFormat.SampleRate * \
-                        (WaveFormat.BitPerSample/8) * \
-                         WaveFormat.NbrChannels);            /* Number of bytes per second  (sample rate * block align)  */
-  WaveFormat.BlockAlign = WaveFormat.NbrChannels * \
-                          (WaveFormat.BitPerSample/8);      /* channels * bits/sample / 8 */
-  
-  /* Parse the wav file header and extract required information */
-  if(WavProcess_HeaderInit(pHeader, &WaveFormat))
-  {
-    return 1;
-  }
-  return 0;
-}
-
-/**
-  * @brief  Initialize the wave header file
-  * @param  pHeader: Header Buffer to be filled
-  * @param  pWaveFormatStruct: Pointer to the wave structure to be filled.
-  * @retval 0 if passed, !0 if failed.
-  */
-static uint32_t WavProcess_HeaderInit(uint8_t* pHeader, WAVE_FormatTypeDef* pWaveFormatStruct)
-{
-  printf("%s\r\n", __func__);
-
-  printf("  chunck ID: RIFF\r\n");
-  /* write chunkID, must be 'RIFF'  ------------------------------------------*/
-  pHeader[0] = 'R';
-  pHeader[1] = 'I';
-  pHeader[2] = 'F';
-  pHeader[3] = 'F';
-
-  /* Write the file length ----------------------------------------------------*/
-  /* The sampling time: this value will be be written back at the end of the 
-   recording opearation.  Example: 661500 Btyes = 0x000A17FC, byte[7]=0x00, byte[4]=0xFC */
-  pHeader[4] = 0x00;
-  pHeader[5] = 0x4C;
-  pHeader[6] = 0x1D;
-  pHeader[7] = 0x00;
-
-  printf("  file format WAVE\r\n");
-  /* Write the file format, must be 'WAVE' -----------------------------------*/
-  pHeader[8]  = 'W';
-  pHeader[9]  = 'A';
-  pHeader[10] = 'V';
-  pHeader[11] = 'E';
-
-  printf("  format chunk: fmt_\r\n");
-  /* Write the format chunk, must be'fmt ' -----------------------------------*/
-  pHeader[12]  = 'f';
-  pHeader[13]  = 'm';
-  pHeader[14]  = 't';
-  pHeader[15]  = ' ';
-
-  printf("  length of fmt data: 0x10\r\n");
-  /* Write the length of the 'fmt' data, must be 0x10 ------------------------*/
-  pHeader[16]  = 0x10;
-  pHeader[17]  = 0x00;
-  pHeader[18]  = 0x00;
-  pHeader[19]  = 0x00;
-
-  printf("  audio format, 0x01(PCM)\r\n");
-  /* Write the audio format, must be 0x01 (PCM) ------------------------------*/
-  pHeader[20]  = 0x01;
-  pHeader[21]  = 0x00;
-
-  printf("  number of channels: %d\r\n", pWaveFormatStruct->NbrChannels);
-  /* Write the number of channels, ie. 0x01 (Mono) ---------------------------*/
-  pHeader[22]  = pWaveFormatStruct->NbrChannels;
-  pHeader[23]  = 0x00;
-
-  printf("  sample rate: %u\r\n", (unsigned int)pWaveFormatStruct->SampleRate);
-  /* Write the Sample Rate in Hz ---------------------------------------------*/
-  /* Write Little Endian ie. 8000 = 0x00001F40 => byte[24]=0x40, byte[27]=0x00*/
-  pHeader[24]  = (uint8_t)((pWaveFormatStruct->SampleRate & 0xFF));
-  pHeader[25]  = (uint8_t)((pWaveFormatStruct->SampleRate >> 8) & 0xFF);
-  pHeader[26]  = (uint8_t)((pWaveFormatStruct->SampleRate >> 16) & 0xFF);
-  pHeader[27]  = (uint8_t)((pWaveFormatStruct->SampleRate >> 24) & 0xFF);
-
-  printf("  byte rate: %u\r\n", (unsigned int)pWaveFormatStruct->ByteRate);
-  /* Write the Byte Rate -----------------------------------------------------*/
-  pHeader[28]  = (uint8_t)((pWaveFormatStruct->ByteRate & 0xFF));
-  pHeader[29]  = (uint8_t)((pWaveFormatStruct->ByteRate >> 8) & 0xFF);
-  pHeader[30]  = (uint8_t)((pWaveFormatStruct->ByteRate >> 16) & 0xFF);
-  pHeader[31]  = (uint8_t)((pWaveFormatStruct->ByteRate >> 24) & 0xFF);
-
-  printf("  balck alignment: %u\r\n", (unsigned int)pWaveFormatStruct->BlockAlign);
-  /* Write the block alignment -----------------------------------------------*/
-  pHeader[32]  = pWaveFormatStruct->BlockAlign;
-  pHeader[33]  = 0x00;
-
-  printf("  number of bits per sample: %u\r\n", (unsigned int)pWaveFormatStruct->BitPerSample);
-  /* Write the number of bits per sample -------------------------------------*/
-  pHeader[34]  = pWaveFormatStruct->BitPerSample;
-  pHeader[35]  = 0x00;
-
-  printf("  data chunk: data\r\n");
-  /* Write the Data chunk, must be 'data' ------------------------------------*/
-  pHeader[36]  = 'd';
-  pHeader[37]  = 'a';
-  pHeader[38]  = 't';
-  pHeader[39]  = 'a';
-
-  /* Write the number of sample data -----------------------------------------*/
-  /* This variable will be written back at the end of the recording operation */
-  pHeader[40]  = 0x00;
-  pHeader[41]  = 0x4C;
-  pHeader[42]  = 0x1D;
-  pHeader[43]  = 0x00;
-  
-  /* Return 0 if all operations are OK */
-  return 0;
-}
-
-/**
-  * @brief  Initialize the wave header file
-  * @param  pHeader: Header Buffer to be filled
-  * @param  pWaveFormatStruct: Pointer to the wave structure to be filled.
-  * @retval 0 if passed, !0 if failed.
-  */
-static uint32_t WavProcess_HeaderUpdate(uint8_t* pHeader, WAVE_FormatTypeDef* pWaveFormatStruct)
-{
-  printf("%s\r\n", __func__);
-
-  printf("  file length: %d\r\n", (unsigned int)BufferCtl.fptr);
-  /* Write the file length ----------------------------------------------------*/
-  /* The sampling time: this value will be be written back at the end of the 
-   recording opearation.  Example: 661500 Btyes = 0x000A17FC, byte[7]=0x00, byte[4]=0xFC */
-  pHeader[4] = (uint8_t)(BufferCtl.fptr);
-  pHeader[5] = (uint8_t)(BufferCtl.fptr >> 8);
-  pHeader[6] = (uint8_t)(BufferCtl.fptr >> 16);
-  pHeader[7] = (uint8_t)(BufferCtl.fptr >> 24);
-
-  /* Write the number of sample data -----------------------------------------*/
-  /* This variable will be written back at the end of the recording operation */
-  BufferCtl.fptr -=44;
-
-  printf("  number of sample data: %d\r\n", (unsigned int)BufferCtl.fptr);
-  pHeader[40] = (uint8_t)(BufferCtl.fptr); 
-  pHeader[41] = (uint8_t)(BufferCtl.fptr >> 8);
-  pHeader[42] = (uint8_t)(BufferCtl.fptr >> 16);
-  pHeader[43] = (uint8_t)(BufferCtl.fptr >> 24); 
-  /* Return 0 if all operations are OK */
-  return 0;
 }
 
 /**
