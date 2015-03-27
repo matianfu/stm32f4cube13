@@ -245,6 +245,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Inc/main.h</locationURI>
 		</link>
 		<link>
+			<name>Projects/STM32F4-Discovery/Applications/Audio/Audio_playback_and_record/Inc/stm32f4xx_hal_conf.h</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Inc/stm32f4xx_hal_conf.h</locationURI>
+		</link>
+		<link>
 			<name>Projects/STM32F4-Discovery/Applications/Audio/Audio_playback_and_record/Inc/waverecorder.h</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Inc/waverecorder.h</locationURI>
